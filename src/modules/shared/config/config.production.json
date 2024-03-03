@@ -1,0 +1,93 @@
+{
+  "API_URL": "https://production.app.io",
+  "appIcon": "/icons/app-icon.svg",
+  "appName": "Vite",
+  "settings": {
+    "defaultLang": "en",
+    "defaultFontSize": "M",
+    "defaultTheme": "Dark"
+  },
+  "themes": {
+    "Dark": {
+      "background": {
+        "main": "#2F2F2F",
+        "sidebar": "#3B3B3B",
+        "topbar": "#000000",
+        "activeTab": "#242424"
+      },
+      "text": {
+        "primary": "#BDBDBD",
+        "secondary": "#292929",
+        "disabled": "#6A6A6A",
+        "buttonHover": "#FFFFFF"
+      },
+      "button": {
+        "color": "#1D1D1D",
+        "hover": "#252525",
+        "disabled": "#252525"
+      },
+      "input": {
+        "primary": "#3B3B3B",
+        "secondary": "#6A6A6A"
+      },
+      "border": {
+        "primary": "#424242",
+        "secondary": "#1B1B1B"
+      }
+    },
+    "Light": {
+      "background": {
+        "topbar": "#F6F6F6",
+        "activeTab": "#E5E5E7",
+        "sidebar": "#F6F6F6",
+        "main": "#FFFFFF"
+      },
+      "text": {
+        "primary": "#263779",
+        "secondary": "#B4BAD3",
+        "disabled": "#9497A7",
+        "buttonHover": "#FFFFFF"
+      },
+      "button": {
+        "color": "#263779",
+        "hover": "#0C2761",
+        "disabled": "#0C2761"
+      },
+      "input": {
+        "primary": "#F6F6F6",
+        "secondary": "#FFFFFF"
+      },
+      "border": {
+        "primary": "#E1E7F2",
+        "secondary": "#D4D7E4"
+      }
+    },
+    "Police Dark": {
+      "background": {
+        "topbar": "#0B1949",
+        "activeTab": "#0D1F55",
+        "sidebar": "#273568",
+        "main": "#1C2A5C"
+      },
+      "text": {
+        "primary": "#9FA9CA",
+        "secondary": "#1D2850",
+        "disabled": "#58658F",
+        "buttonHover": "#FFFFFF"
+      },
+      "button": {
+        "color": "#54649F",
+        "hover": "#283668",
+        "disabled": "#283668"
+      },
+      "input": {
+        "primary": "#273568",
+        "secondary": "#9FA9CA"
+      },
+      "border": {
+        "primary": "#283668",
+        "secondary": "#9FA9CA"
+      }
+    }
+  }
+}
