@@ -1,28 +1,35 @@
-import React from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Loading from './modules/shared/components/loading/Loading';
+
+const Login = lazy(() =>
+  import('./modules/login').then((module) => ({
+    default: module.Login,
+  }))
+);
+const Otp = lazy(() =>
+  import('./modules/login').then((module) => ({
+    default: module.Otp,
+  }))
+);
+const Register = lazy(() =>
+  import('./modules/login').then((module) => ({
+    default: module.Register,
+  }))
+);
 
 const Router = () => (
   <BrowserRouter>
-    <Routes>
-      {/* login */}
-      {/* <Route path="/" element={<Login />} />
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        {/* login */}
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Otp />} />
-        <Route path="/login/register" element={<Register />} /> */}
 
-      {/* <Route element={<AuthRoute />}> */}
-      {/* <Route element={<TeamRoute />}> */}
-
-      {/* dashboard */}
-
-      {/* </Route> */}
-
-      {/* workspaces */}
-      {/* settings */}
-      {/* admin */}
-      {/* connector */}
-
-      {/* </Route> */}
-    </Routes>
+        {/* signup */}
+        <Route path="/login/signup" element={<Register />} />
+      </Routes>
+    </Suspense>
   </BrowserRouter>
 );
 

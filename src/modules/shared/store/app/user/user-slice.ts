@@ -34,6 +34,7 @@ export type UserSettingsStoreSchema = {
     init: string;
     value: string;
   };
+  verified: boolean;
 };
 
 const initialState: UserSettingsStoreSchema = {
@@ -69,6 +70,7 @@ const initialState: UserSettingsStoreSchema = {
     init: userSVGAvatars[0],
     value: userSVGAvatars[0],
   },
+  verified: false,
 };
 
 export type AxiosResponseData = {
@@ -164,7 +166,7 @@ const userSettingsSlices = createSlice({
         state.status.msg = '';
         state.loaded = true;
 
-        const { email, userName, firstName, lastName, avatarUrl } =
+        const { email, userName, firstName, lastName, avatarUrl, verified } =
           action.payload;
 
         if (email) {
@@ -192,6 +194,8 @@ const userSettingsSlices = createSlice({
           state.avatarUrl.value = avatarUrl;
           SessionStore.setActiveUserAvatarURL(avatarUrl);
         }
+
+        state.verified = verified;
       })
       .addCase(loadUserInfo.rejected, (state, action) => {
         state.status.loading = false;
@@ -319,25 +323,20 @@ export const {
   setUserSettingsArgs,
 } = userSettingsSlices.actions;
 
-export const getUserStatusSelector = (state: RootState) =>
-  state.app.userSettings.status;
-
 export const userLoaded = createSelector(
   (state: RootState) => state.app.userSettings.loaded,
   (s) => s
 );
 
 export const userSettingsThunkSelector = createSelector(
-  [getUserStatusSelector],
+  [(state: RootState) => state.app.userSettings.status],
   (status) => ({
     userStatus: status,
   })
 );
 
-export const getUserSettings = (state: RootState) => state.app.userSettings;
-
 export const userSettingsSelector = createSelector(
-  [getUserSettings],
+  [(state: RootState) => state.app.userSettings],
   (userSettings) => userSettings
 );
 

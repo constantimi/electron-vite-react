@@ -1,0 +1,20 @@
+{
+  "badRequest": "Invalid email address",
+  "unauthorized": "Invalid email address",
+  "registerError": "Invalid registration",
+  "notUnique": "This slug is already in use, please try another",
+  "loginError": "Invalid email address",
+  "otpError": "Invalid otp",
+  "notFound": "User not found",
+  "internalServerError": "Invalid request",
+  "forbidden": "Forbidden",
+
+  "errUsername": "Must be between 5 to 20 characters long",
+  "errFirstName": "This field is required",
+  "errLastName": "This field is required",
+  "errMessage": "The registry configurations are not correct",
+  "notUniqueUsername": "This username is already taken",
+
+  "errSlug": "This slug is already in use, please try another",
+  "errName": "This field is required"
+}

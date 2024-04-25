@@ -5,7 +5,7 @@
   "settings": {
     "defaultLang": "en",
     "defaultFontSize": "M",
-    "defaultTheme": "Dark"
+    "defaultTheme": "Light"
   },
   "dev": true,
   "themes": {
