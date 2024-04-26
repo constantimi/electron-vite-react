@@ -10,7 +10,7 @@ type Props = {
 const AppIcon = ({ className, alt }: Props) => (
   <img
     src={config.appIcon}
-    className={cn('h-[30px] w-[30px]', className)}
+    className={cn('h-[80px] w-[80px]', className)}
     alt={alt}
   />
 );

@@ -31,6 +31,7 @@ import {
 } from '../../../../shared/store/app/user/user-slice';
 import WarningIcon from '../../../../shared/components/icons/WarningIcon';
 import { supportColors } from '../../../../shared/constants/theme';
+import config from '../../../../shared/config/config';
 
 const OtpForm = () => {
   // =====================================================================
@@ -147,7 +148,12 @@ const OtpForm = () => {
 
   return (
     <Center>
-      <AppIcon />
+      <div className="flex flex-col items-center justify-center gap-2">
+        <AppIcon />
+        <Theme.PrimaryText className="text-base">
+          {t('Welcome by {{ name }}', { name: config.appName })}
+        </Theme.PrimaryText>
+      </div>
       <Theme.PrimaryText className="mt-10 text-lg">
         {t('Check your inbox')}
       </Theme.PrimaryText>

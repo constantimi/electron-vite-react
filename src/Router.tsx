@@ -25,8 +25,6 @@ const Router = () => (
         {/* login */}
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Otp />} />
-
-        {/* signup */}
         <Route path="/login/signup" element={<Register />} />
       </Routes>
     </Suspense>

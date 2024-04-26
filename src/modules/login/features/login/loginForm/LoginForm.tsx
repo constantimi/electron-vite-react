@@ -27,6 +27,8 @@ import {
 import { getTheme } from '../../../../shared/store/app/theme';
 import Tab from '../../../components/tab/Tab';
 import { TabNames } from '../../../types/enum';
+import { Theme } from '../../../../shared/layout/theme';
+import config from '../../../../shared/config/config';
 
 const LoginForm = () => {
   // =====================================================================
@@ -113,8 +115,11 @@ const LoginForm = () => {
 
   return (
     <Center>
-      <div className="mb-8 flex flex-row items-center justify-center gap-2">
-        <AppIcon className="h-[45px] w-[200px]" />
+      <div className="mb-8 flex flex-col items-center justify-center gap-2">
+        <AppIcon />
+        <Theme.PrimaryText className="text-base">
+          {t('Welcome by {{ name }}', { name: config.appName })}
+        </Theme.PrimaryText>
       </div>
 
       <Form className="w-full flex-col">

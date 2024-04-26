@@ -5,4 +5,4 @@ export const LANGUAGES = [
 
 export const LANGUAGECODES = ['nl', 'en'];
 
-export const NAMESPACES = ['shared'];
+export const NAMESPACES = ['shared', 'login'];

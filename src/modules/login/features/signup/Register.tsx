@@ -17,6 +17,8 @@ import { loadUserInfo } from '../../../shared/store/app/user/user-thunk';
 import { Step, StepList, StepNames } from '../../types/step';
 import AppIcon from '../../../shared/components/app/AppIcon';
 import { useLoginTranslation } from '../../hooks/useLoginTranslation';
+import { Theme } from '../../../shared/layout/theme';
+import config from '../../../shared/config/config';
 
 const Register = () => {
   // =====================================================================
@@ -116,8 +118,11 @@ const Register = () => {
     <LoginLayout>
       <div className="flex h-full w-full items-center justify-center overflow-auto">
         <div className="flex flex-col items-center justify-center p-4">
-          <div className="flex flex-row justify-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-2">
             <AppIcon />
+            <Theme.PrimaryText className="text-base">
+              {t('Welcome by {{ name }}', { name: config.appName })}
+            </Theme.PrimaryText>
           </div>
 
           <Stepper steps={stepper} />
