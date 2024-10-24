@@ -19,12 +19,7 @@ describe('SessionStore', () => {
     SessionStore.getUserRole();
     expect(sessionStorage.getItem).toHaveBeenCalledWith('user_role');
   });
-
-  it('should get the system role', () => {
-    SessionStore.getSystemRole();
-    expect(sessionStorage.getItem).toHaveBeenCalledWith('system_role');
-  });
-
+  
   it('should get the active workspace', () => {
     SessionStore.getActiveWorkspace();
     expect(sessionStorage.getItem).toHaveBeenCalledWith('active_workspace');

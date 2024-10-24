@@ -1,28 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import Layout from '../../layout/layout/Layout';
-import Content from '../../layout/content/Content';
 import { useAppSelector } from '../../store/hooks';
 import { getTheme } from '../../store/app/theme';
 import { useSharedTranslation } from '../../hooks/useSharedTranslation';
-import NotFoundIcon from '../icons/NotFoundIcon';
 import { Theme } from '../../layout/theme';
-import { SessionStore } from '../../utils/session';
+import Layout from '../../layout/layout/Layout';
+import Content from '../../layout/content/Content';
+import NotFoundIcon from '../icons/NotFoundIcon';
 
 const NotFound = () => {
-  // =====================================================================
-  // states
   const navigate = useNavigate();
 
   const theme = useAppSelector(getTheme);
-  const workspace = SessionStore.getActiveWorkspace();
 
   const { t } = useSharedTranslation();
 
-  // =====================================================================
-  // handle
-  const handleReturnToDashboard = () => {
-    navigate(`/${workspace}`);
+  const handleReturn = () => {
+    navigate(`/`);
   };
 
   return (
@@ -39,12 +33,13 @@ const NotFound = () => {
             className="my-4 flex max-h-full flex-col items-center p-4"
           >
             <NotFoundIcon fill={theme.text.primary} />
-            <Theme.PrimaryText className="mt-3 text-lg">
+            <Theme.PrimaryText className="mt-4 text-lg">
               {t('Page not found')}
             </Theme.PrimaryText>
+
             <Theme.DefaultButton
-              className="mt-6 h-[1rem] w-[16rem] justify-center border-b text-sm"
-              onClick={handleReturnToDashboard}
+              className="mt-4 h-[1rem] w-fit justify-center border-b text-sm"
+              onClick={handleReturn}
             >
               {t('back to landing')}
             </Theme.DefaultButton>

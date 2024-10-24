@@ -2,16 +2,25 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../..';
 import { Theme } from '../../../types/theme';
 import { ThemeService } from './helper/service';
-import LocalSettings from '../settings/local/local';
+import config from '../../../config/config';
 
 type ThemeStore = {
   name: string;
 } & Theme;
 
-const initialState: ThemeStore = {
-  name: LocalSettings.get('defaultTheme'),
-  ...ThemeService.getTheme(LocalSettings.get('defaultTheme')),
-};
+const initialState: ThemeStore = (() => {
+  const savedTheme = sessionStorage.getItem('theme');
+  if (savedTheme && ThemeService.has(savedTheme)) {
+    return {
+      name: savedTheme,
+      ...ThemeService.getTheme(savedTheme),
+    };
+  }
+  return {
+    name: config.settings.defaultTheme,
+    ...ThemeService.getTheme(config.settings.defaultTheme),
+  };
+})();
 
 const ThemeSlice = createSlice({
   name: 'theme',
@@ -28,6 +37,8 @@ const ThemeSlice = createSlice({
         state.input = input;
         state.border = border;
         state.name = t;
+
+        sessionStorage.setItem('theme', t);
       } else if (t === 'custom') {
         state.name = t;
       }

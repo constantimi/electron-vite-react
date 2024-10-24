@@ -1,28 +1,22 @@
-import React from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Loading, NotFound } from './modules/shared';
+
+// const Dashboard = lazy(() =>
+//   import('./modules/dashboard').then((module) => ({
+//     default: module.Dashboard,
+//   }))
+// );
 
 const Router = () => (
   <BrowserRouter>
-    <Routes>
-      {/* login */}
-      {/* <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Otp />} />
-        <Route path="/login/register" element={<Register />} /> */}
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        {/* <Route path="/" element={<Dashboard />} /> */}
 
-      {/* <Route element={<AuthRoute />}> */}
-      {/* <Route element={<TeamRoute />}> */}
-
-      {/* dashboard */}
-
-      {/* </Route> */}
-
-      {/* workspaces */}
-      {/* settings */}
-      {/* admin */}
-      {/* connector */}
-
-      {/* </Route> */}
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   </BrowserRouter>
 );
 

@@ -3,10 +3,10 @@ import { AxiosClient } from '../../../utils/axios';
 
 export const refreshAccessToken = createAsyncThunk<
   string,
-  { refreshToken: string; slug?: string }
->('auth/refreshAccessToken', async ({ refreshToken, slug }, thunkAPI) => {
+  { refreshToken: string }
+>('auth/refreshAccessToken', async ({ refreshToken }, thunkAPI) => {
   try {
-    return AxiosClient.RefreshToken(refreshToken, slug);
+    return AxiosClient.RefreshToken(refreshToken);
   } catch (refreshError) {
     // Handle refresh token failure (e.g., logout, show an error message, etc.)
     AxiosClient.clearTokens();

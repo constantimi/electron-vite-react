@@ -1,15 +1,13 @@
 import React from 'react';
-import Layout from '../../layout/layout/Layout';
-import Content from '../../layout/content/Content';
 import { useAppSelector } from '../../store/hooks';
 import { getTheme } from '../../store/app/theme';
 import { useSharedTranslation } from '../../hooks/useSharedTranslation';
-import PhoneLinkErase from '../icons/PhonelinkErase';
 import { Theme } from '../../layout/theme';
+import Layout from '../../layout/layout/Layout';
+import Content from '../../layout/content/Content';
+import PhoneLinkErase from '../icons/PhonelinkErase';
 
 const NotSupported = () => {
-  // =====================================================================
-  // states
   const theme = useAppSelector(getTheme);
 
   const { t } = useSharedTranslation();

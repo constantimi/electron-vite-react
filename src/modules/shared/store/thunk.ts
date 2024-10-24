@@ -10,10 +10,10 @@ import { AppDispatch } from '.';
 import axiosClient, { AxiosClient } from '../utils/axios';
 
 export enum ThunkMethod {
-  'delete' = 'delete',
-  'put' = 'put',
-  'post' = 'post',
-  'get' = 'get',
+  DELETE = 'delete',
+  PUT = 'put',
+  POST = 'post',
+  GET = 'get',
 }
 
 export type ThunkConfig<R> = {
@@ -26,10 +26,6 @@ export type ThunkConfig<R> = {
 interface ErrorResponse {
   error: string;
   fields?: { [key: string]: string };
-}
-
-export enum ErrorTag {
-  Validation = 'data validation error',
 }
 
 export type ThunkError = {
@@ -79,7 +75,7 @@ export const createAppAsyncThunk =
         };
 
         let resp: AxiosResponse<R>;
-        if (m === ThunkMethod.get || m === ThunkMethod.delete) {
+        if (m === ThunkMethod.GET || m === ThunkMethod.DELETE) {
           resp = await (client as AxiosClient)[m](url(urlArgs), resConf);
         } else {
           resp = await (client as AxiosClient)[m](

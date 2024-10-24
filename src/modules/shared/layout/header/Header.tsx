@@ -1,8 +1,11 @@
 import React from 'react';
+import cn from 'classnames';
 import { Theme } from '../theme';
+import { getTheme } from '../../store/app/theme';
+import { useAppSelector } from '../../store/hooks';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 };
 
@@ -18,8 +21,17 @@ type Props = {
  * background.
  *
  */
-const Header = ({ children, className }: Props) => (
-  <Theme.Topbar className={className}>{children}</Theme.Topbar>
-);
+const Header = ({ children, className }: Props) => {
+  const theme = useAppSelector(getTheme);
+
+  return (
+    <Theme.Topbar
+      className={cn('border-b-[0.5px]', className)}
+      style={{ borderColor: theme.border.primary }}
+    >
+      {children}
+    </Theme.Topbar>
+  );
+};
 
 export default Header;

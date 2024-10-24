@@ -33,18 +33,13 @@ export class AxiosClient {
     try {
       const payload = z
         .object({
-          sub: z.string(),
+          ur: z.string(),
           role: z.string(),
-          sr: z.string().optional(),
           ws: z.string(),
         })
         .parse(jwtDecode(accessToken));
-      sessionStorage.setItem('user_id', payload.sub);
+      sessionStorage.setItem('user_id', payload.ur);
       sessionStorage.setItem('user_role', payload.role);
-      if (payload.sr) {
-        sessionStorage.setItem('system_role', payload.sr);
-      }
-
       sessionStorage.setItem('active_workspace', payload.ws);
     } catch {
       AxiosClient.clearTokens();
@@ -55,15 +50,10 @@ export class AxiosClient {
 
   static clearTokens() {
     sessionStorage.removeItem('access_token');
+
     sessionStorage.removeItem('user_id');
     sessionStorage.removeItem('user_role');
-    sessionStorage.removeItem('team_role');
-    sessionStorage.removeItem('system_role');
-    sessionStorage.removeItem('user_avatar_url');
     sessionStorage.removeItem('active_workspace');
-    sessionStorage.removeItem('active_workspace_name');
-    sessionStorage.removeItem('active_team_slug');
-    sessionStorage.removeItem('active_team_id');
 
     localStorage.removeItem('refresh_token');
   }
@@ -100,14 +90,11 @@ export class AxiosClient {
     return Date.now() <= expirationTime;
   }
 
-  public static async RefreshToken(
-    refreshToken: string,
-    slug?: string
-  ): Promise<string> {
+  public static async RefreshToken(refreshToken: string): Promise<string> {
     try {
       // Replace this with your actual refresh token API endpoint
       const response: AxiosResponse = await axios.get(
-        AuthAPI.endpoints().refresh_token(slug),
+        AuthAPI.endpoints().refresh_token,
         {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
