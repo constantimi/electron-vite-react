@@ -56,10 +56,14 @@ export default ThemeSlice.reducer;
 
 export const { setActiveTheme, setCustomTheme } = ThemeSlice.actions;
 
-export const getThemeOptions = (state: RootState) => ({
-  active: state.app.themes.name,
-  all: [...ThemeService.getAll()],
-});
+export const getThemeOptions = createSelector(
+  (state: RootState) => state.app.themes.name,
+  () => ThemeService.getAll(),
+  (activeTheme, allThemes) => ({
+    active: activeTheme,
+    all: [...allThemes],
+  })
+);
 
 export const getTheme = createSelector(
   [(state: RootState) => state.app.themes],

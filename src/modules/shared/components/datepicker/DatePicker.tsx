@@ -160,11 +160,12 @@ const DatepickerComponent = ({
         <Datepicker
           dateFormat="dd-MM-yyyy"
           selected={defaultDate}
-          onChange={(date) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          onChange={(date: Date | null, _) => {
             if (date) {
               onChange(date);
+              setDefaultDate(date);
             }
-            setDefaultDate(date);
           }}
           customInput={<CustomInput label={label} error={error} />}
           calendarClassName="calendar"
