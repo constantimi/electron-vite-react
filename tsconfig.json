@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
@@ -8,9 +12,18 @@
     "typeRoots": [
       "node_modules/@types",
       "src/@types"
+    ],
+    "types": [
+      "jest",
+      "node"
     ]
   },
   "include": [
     "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist"
   ]
 }
