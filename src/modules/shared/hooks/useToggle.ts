@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
 
-const useToggle = (initialValue = false) => {
-  const [value, setValue] = useState(initialValue);
+const useToggle = (initialValue: boolean = false) => {
+  const [value, setValue] = useState<boolean>(initialValue);
 
   const toggle = useCallback(() => {
-    setValue((v) => !v);
+    setValue((prev) => !prev);
   }, []);
 
   return [value, toggle] as const;

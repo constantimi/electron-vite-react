@@ -1,18 +1,13 @@
 import * as React from 'react';
+import { IconProps } from '../../types/icon';
 
-interface INotFoundProps extends React.SVGProps<SVGSVGElement> {
-  width?: string;
-  height?: string;
-  fill?: string;
-  className?: string;
-}
 const NotFoundIcon = ({
   fill = '#9FA9CA',
   width = '251',
   height = '98',
   className,
   ...props
-}: INotFoundProps) => (
+}: IconProps) => (
   <svg
     width={width}
     height={height}

@@ -1,22 +1,37 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import { storeManager } from './modules/shared/store/store';
-import 'react-toastify/dist/ReactToastify.css';
+import { NotSupported } from './modules/shared';
 import config from './modules/shared/config/config';
 import Router from './Router';
-import NotSupported from './modules/shared/components/error/NotSupported';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const { appName, appIcon } = config;
+  const { app } = config;
 
   return (
     <Provider store={storeManager.store}>
-      <Helmet>
-        <title>{appName}</title>
-        <link rel="icon" type="image/svg+xml" href={appIcon} />
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>{app.name}</title>
+          <link
+            rel="icon"
+            type="image/x-icon"
+            media="(prefers-color-scheme: light)"
+            href={app.icon.light}
+          />
+
+          <link
+            rel="icon"
+            type="image/x-icon"
+            media="(prefers-color-scheme: dark)"
+            href={app.icon.dark}
+          />
+        </Helmet>
+      </HelmetProvider>
       <div className="hidden sm:block">
         <Router />
       </div>

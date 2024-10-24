@@ -1,17 +1,12 @@
-import React, { SVGProps } from 'react';
-
-interface INotFoundProps extends SVGProps<SVGSVGElement> {
-  size?: string;
-  fill?: string;
-  className?: string;
-}
+import * as React from 'react';
+import { IconProps } from '../../types/icon';
 
 const PhoneLinkErase = ({
   fill = '#9FA9CA',
   size = '53px',
   className,
   ...props
-}: INotFoundProps) => (
+}: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

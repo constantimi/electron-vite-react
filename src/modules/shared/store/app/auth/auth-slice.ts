@@ -1,19 +1,20 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import { refreshAccessToken } from './auth-thunk';
+import { Status } from '../../../types/status';
 import { RootState } from '../..';
 
-export type AuthStore = {
+export interface AuthState {
   authenticated: boolean;
-  code: number;
-  loading: boolean;
-  msg: string;
-};
+  status: Status;
+}
 
-const initialState: AuthStore = {
+const initialState: AuthState = {
   authenticated: false,
-  code: -1,
-  loading: false,
-  msg: '',
+  status: {
+    code: -1,
+    msg: '',
+    loading: false,
+  },
 };
 
 const authSlice = createSlice({
@@ -21,9 +22,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     resetAuthResponse: (state) => {
-      state.code = initialState.code;
-      state.loading = initialState.loading;
-      state.msg = initialState.msg;
+      state.status.code = initialState.status.code;
+      state.status.loading = initialState.status.loading;
+      state.status.msg = initialState.status.msg;
+
       state.authenticated = initialState.authenticated;
     },
     setAuthenticated: (state, action: PayloadAction<boolean>) => {
@@ -33,18 +35,18 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(refreshAccessToken.pending, (state) => {
-        state.code = -1;
-        state.loading = true;
+        state.status.code = -1;
+        state.status.loading = true;
         state.authenticated = false;
       })
       .addCase(refreshAccessToken.fulfilled, (state) => {
-        state.code = 200;
-        state.loading = false;
+        state.status.code = 200;
+        state.status.loading = false;
         state.authenticated = true;
       })
       .addCase(refreshAccessToken.rejected, (state) => {
-        state.code = 403;
-        state.loading = false;
+        state.status.code = 403;
+        state.status.loading = false;
         state.authenticated = false;
       });
   },
@@ -54,17 +56,12 @@ export default authSlice.reducer;
 
 export const { resetAuthResponse, setAuthenticated } = authSlice.actions;
 
-export const getAuthStatus = (state: RootState) => state.app.auth;
-
 export const getAuthStatusSelector = createSelector(
-  [getAuthStatus],
-  (status) => ({
-    authCode: status.code,
-    authLoading: status.loading,
-  })
+  [(state: RootState) => state.app.auth.status],
+  (status) => status
 );
 
 export const getAuthenticated = createSelector(
   (state: RootState) => state.app.auth.authenticated,
-  (a) => a
+  (authenticated) => authenticated
 );

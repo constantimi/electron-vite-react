@@ -1,11 +1,10 @@
 import React from 'react';
-import cn from 'classnames';
 import { Theme } from '../theme';
 
-type Props = {
+interface Props {
   children: React.ReactNode[] | React.ReactNode;
   className?: string;
-};
+}
 
 /**
  * Content Component
@@ -18,11 +17,8 @@ type Props = {
  * the full width and spans the entire height of the viewport.
  */
 const Content = ({ children, className }: Props) => (
-  <div
-    className={cn('h-full w-full overflow-x-auto', className)}
-    data-testid="content"
-  >
-    <Theme.Background>{children}</Theme.Background>
+  <div className="h-full w-full overflow-x-auto">
+    <Theme.Background className={className}>{children}</Theme.Background>
   </div>
 );
 

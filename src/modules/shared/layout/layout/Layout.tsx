@@ -1,58 +1,66 @@
+/**
+ * Layout component that arranges its children into a header, content, and optional sidebar.
+ *
+ * @component
+ * @param {Props} props - The properties object.
+ * @param {React.ReactNode | React.ReactNode[]} props.children - The child elements to be rendered within the layout.
+ * @param {string} [props.className] - Optional additional class names to apply to the layout container.
+ *
+ * @returns {JSX.Element} The rendered layout component.
+ *
+ * @example
+ * <Layout>
+ *   <HeaderComponent />
+ *   <SidebarComponent />
+ *   <ContentComponent />
+ * </Layout>
+ *
+ * The above example will render a layout with a header, sidebar, and content area.
+ *
+ * If only two children are provided, it will render a layout with just a header and content area.
+ * If only one child is provided, it will render that single child without any additional layout structure.
+ */
+
 import React from 'react';
 import cn from 'classnames';
-import validateChildren from '../../helpers/validateLayout';
 
-type Props = {
+interface Props {
   children: React.ReactNode | React.ReactNode[];
   className?: string;
-  topbarClassName?: string;
-};
+}
 
-/**
- * Layout Component
- *
- * This is a layout component designed to structure the application. It accepts a `className` prop for styling and `children` for content.
- *
- * The `children` prop can be a single ReactNode or an array of ReactNodes, and it expects specific components (Header, Sidebar, Content) in a specific order based on the number of children:
- *
- * - If there are 3 children, they should be of type Header, Sidebar, and Content respectively.
- * - If there are 2 children, they should be of type Sidebar and Content respectively.
- * - If there is 1 child, it should be of type Content.
- *
- * The component validates the structure of the children and will render nothing (and log an error) if the structure is invalid.
- *
- * The component applies a full viewport height styling by default and additional classes can be added via the `className` prop.
- */
-const Layout = ({
-  children: possibleChildren,
-  className,
-  topbarClassName,
-}: Props) => {
-  const children = Array.isArray(possibleChildren)
-    ? possibleChildren
-    : [possibleChildren];
+interface LayoutProps {
+  header: React.ReactNode;
+  content: React.ReactNode;
+  sidebar?: React.ReactNode;
+}
 
-  const validStructure = validateChildren(children);
+const Layout = ({ children: possibleChildren, className }: Props) => {
+  const childrenArray = React.Children.toArray(possibleChildren);
 
-  if (!validStructure) {
-    // eslint-disable-next-line no-console
-    console.error('Invalid structure of children in Layout component');
-    return null;
-  }
+  const render = ({ header, content, sidebar }: LayoutProps) => (
+    <div className="flex flex-row">
+      {sidebar && <div className="flex min-w-[200px]">{sidebar}</div>}
+      <div className="flex flex-grow flex-col overflow-hidden">
+        <div className="flex min-h-[55px]">{header}</div>
+        <div className="flex h-[calc(100vh-55px)]">{content}</div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className={cn('h-[100vh]', className)} data-testid="layout">
-      {children.length === 3 && (
-        <>
-          <div className={cn('h-[55px]', topbarClassName)}>{children[0]}</div>
-          <div className="flex h-[calc(100vh-55px)] flex-grow">
-            {children[1]}
-            {children[2]}
-          </div>
-        </>
-      )}
-      {children.length === 2 && <div className="flex flex-row">{children}</div>}
-      {children.length === 1 && children[0]}
+    <div className={cn('h-[100vh]', className)}>
+      {childrenArray.length === 3 &&
+        render({
+          header: childrenArray[0],
+          content: childrenArray[2],
+          sidebar: childrenArray[1],
+        })}
+
+      {childrenArray.length === 2 &&
+        render({ header: childrenArray[0], content: childrenArray[1] })}
+
+      {childrenArray.length === 1 && childrenArray[0]}
     </div>
   );
 };

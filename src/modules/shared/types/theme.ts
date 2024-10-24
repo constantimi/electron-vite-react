@@ -1,3 +1,8 @@
+export enum Mode {
+  DARK = 'dark',
+  LIGHT = 'light',
+}
+
 export type Theme = {
   background: {
     main: string;
@@ -9,7 +14,7 @@ export type Theme = {
     primary: string;
     secondary: string;
     disabled: string;
-    buttonHover: string;
+    button: string;
   };
   button: {
     color: string;
@@ -18,7 +23,7 @@ export type Theme = {
   };
   input: {
     primary: string;
-    secondary: string;
+    default: string;
   };
   border: {
     primary: string;
@@ -27,18 +32,9 @@ export type Theme = {
 };
 
 export type SupportColors = {
-  regular: {
-    green: string;
-    red: string;
-    orange: string;
-    yellow: string;
-    blue: string;
-  };
-  light: {
-    green: string;
-    red: string;
-    orange: string;
-    yellow: string;
-    blue: string;
-  };
+  green: string;
+  red: string;
+  orange: string;
+  yellow: string;
+  blue: string;
 };

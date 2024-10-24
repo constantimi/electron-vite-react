@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reducer from './reducer';
-import { touchscreenMiddleware } from './app/settings/mid/touchscreen';
 
 /**
  * Function that uses the redux-toolkit to create a store in a more simple way, and also contais the redux-dev-toolkit so
@@ -14,10 +13,9 @@ export const configureAppStore = () =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      }).concat(touchscreenMiddleware()),
+      }).concat(),
   });
 
-// managing a store instance to allow for resetting
 class StoreManager {
   private storeInstance: AppStore;
 
@@ -35,8 +33,5 @@ class StoreManager {
 }
 
 export const storeManager = new StoreManager();
-
-// =========================================================
-// types
 
 export type AppStore = ReturnType<typeof configureAppStore>;
