@@ -8,13 +8,8 @@ module.exports = {
   ],
   modulePathIgnorePatterns: ['./build/'],
   transform: {
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        tsconfig: 'tsconfig.json',
-        diagnostics: false,
-      },
-    ],
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
   },
   setupFilesAfterEnv: ['<rootDir>/src/modules/shared/config/config.tests.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],

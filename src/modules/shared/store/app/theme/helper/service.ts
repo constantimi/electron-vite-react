@@ -35,6 +35,6 @@ export class ThemeService {
       button: themeConfig.button,
       input: themeConfig.input,
       border: themeConfig.border,
-    };
+    } as Theme;
   }
 }
