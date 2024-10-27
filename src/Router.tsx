@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Loading, NotFound } from './modules/shared';
+import { BrowserRouter, Routes } from 'react-router-dom';
+import { Loading } from './modules/shared';
 
 // const Dashboard = lazy(() =>
 //   import('./modules/dashboard').then((module) => ({
@@ -13,8 +13,7 @@ const Router = () => (
     <Suspense fallback={<Loading />}>
       <Routes>
         {/* <Route path="/" element={<Dashboard />} /> */}
-
-        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Suspense>
   </BrowserRouter>
