@@ -1,11 +1,11 @@
 {
-  "API_URL": "http://localhost:3001",
+  "API_URL": "https://development-app.com",
   "app": {
     "icon": {
-      "light": "https://images.squarespace-cdn.com/content/v1/655486a453fc7b7a3b028b00/d4b6493d-53c4-4f54-8f2c-b8ad9537f198/favicon.ico?format=100w",
-      "dark": "https://images.squarespace-cdn.com/content/v1/655486a453fc7b7a3b028b00/065fb74f-655e-4647-8f32-8453fa78f957/favicon.ico?format=100w"
+      "light": "/icons/app-icon.svg",
+      "dark": "/icons/app-icon.svg"
     },
-    "name": "TrustFlow"
+    "name": "Vite"
   },
   "settings": {
     "defaultLang": "en",
