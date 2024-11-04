@@ -3,7 +3,7 @@ export type OptionType = {
   label: unknown;
 };
 
-export type DropdownOption = {
-  value: string;
+export type DropdownOption<T = string> = {
   label: string;
+  value: T;
 };

@@ -3,7 +3,7 @@ import themeReducer from './theme/theme';
 import authReducer from './auth/auth-slice';
 
 const appReducers = combineReducers({
-  themes: themeReducer,
+  theme: themeReducer,
   auth: authReducer,
 });
 

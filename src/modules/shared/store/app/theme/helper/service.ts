@@ -1,5 +1,5 @@
 import config from '../../../../config/config';
-import { Theme } from '../../../../types/theme';
+import { ThemeObject } from '../../../../types/theme';
 
 export class ThemeService {
   static has(name: string): boolean {
@@ -18,7 +18,7 @@ export class ThemeService {
     }
   }
 
-  static getTheme(name: string): Theme {
+  static getTheme(name: string): ThemeObject {
     ThemeService.validateDefaultTheme();
 
     const theme = ThemeService.has(name) ? name : config.settings.defaultTheme;
@@ -29,12 +29,6 @@ export class ThemeService {
       throw new Error(`Theme configuration not found for theme: ${theme}`);
     }
 
-    return {
-      background: themeConfig.background,
-      text: themeConfig.text,
-      button: themeConfig.button,
-      input: themeConfig.input,
-      border: themeConfig.border,
-    } as Theme;
+    return themeConfig as ThemeObject;
   }
 }

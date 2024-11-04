@@ -10,9 +10,7 @@ export const useDropdownStyle = <T extends OptionType>() => {
     control: (provided, state) => ({
       ...provided,
       borderRadius: '0.25rem',
-      borderColor: state.isFocused
-        ? theme.input.secondary
-        : theme.input.primary,
+      borderColor: state.isFocused ? theme.input.default : theme.input.primary,
       display: 'flex',
       backgroundColor: theme.input.primary,
       color: theme.text.primary,

@@ -1,9 +1,10 @@
-export enum Mode {
+export enum Theme {
   DARK = 'dark',
   LIGHT = 'light',
+  SYSTEM = 'system',
 }
 
-export type Theme = {
+export type ThemeObject = {
   background: {
     main: string;
     sidebar: string;

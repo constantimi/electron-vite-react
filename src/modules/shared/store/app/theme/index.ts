@@ -1,6 +1,1 @@
-export {
-  getTheme,
-  getThemeOptions,
-  setActiveTheme,
-  setCustomTheme,
-} from './theme';
+export { getTheme, updateTheme } from './theme';
