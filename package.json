@@ -1,8 +1,29 @@
 {
   "name": "electron-vite",
+  "productName": "Electron Vite",
+  "version": "1.0.0",
+  "description": "Electron Vite",
+  "author": "Electron",
+  "main": "dist/electron/main.js",
+  "license": "MIT",
   "private": true,
-  "version": "0.0.0",
-  "main": "dist-electron/main.js",
+  "build": {
+    "appId": "electron-vite.app",
+    "productName": "Electron Vite",
+    "files": [
+      "dist/electron/**/*",
+      "public/**/*",
+      "main.js",
+      "preload.js"
+    ],
+    "directories": {
+      "output": "release/${version}"
+    },
+    "asar": true,
+    "extraResources": [
+      "public/**/*"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "npm run format"
@@ -13,7 +34,9 @@
     "build": "tsc --noEmit --skipLibCheck && vite build",
     "electron": "electron .",
     "start": "npm run dev",
-    "dev-electron": "concurrently \"npm run dev\" \"npm run electron\"",
+    "build:electron": "tsc -p tsconfig.json",
+    "build:prod": "npm run build && npm run build:electron && electron-builder",
+    "start:prod": "npm run build:prod && electron dist/electron/main.js",
     "preview": "vite preview",
     "jest": "jest",
     "test": "jest --detectOpenHandles",
@@ -24,7 +47,8 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write --plugin-search-dir=. --plugin=. -- '*.js' '*.jsx' '*.ts' '*.tsx'",
-    "type-check": "tsc --noEmit --skipLibCheck"
+    "type-check": "tsc --noEmit --skipLibCheck",
+    "package-mac": "npm run build:electron && electron-packager . ${name} --platform=darwin --arch=x64 --icon=./public/icons/app-icon.icns --out=dist/electron --overwrite"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
@@ -34,7 +58,6 @@
     "classnames": "^2.3.2",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
-    "electron": "^24.8.8",
     "i18next": "^23.10.0",
     "i18next-http-backend": "^2.6.2",
     "i18next-sprintf-postprocessor": "^0.2.2",
@@ -76,6 +99,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "cross-env": "^7.0.3",
     "dotenv-flow": "^4.1.0",
+    "electron": "^24.8.8",
     "electron-builder": "^24.13.3",
     "electron-is-dev": "^2.0.0",
     "eslint": "^8.57.0",

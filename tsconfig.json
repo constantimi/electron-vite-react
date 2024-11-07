@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
+    "outDir": "./dist/electron",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -19,7 +20,9 @@
     ]
   },
   "include": [
-    "vite.config.ts"
+    "vite.config.ts",
+    "src/main.ts",
+    "src/preload.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,7 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../store/hooks';
 import { getTheme } from '../../store/app/theme';
-import { useSharedTranslation } from '../../hooks/useSharedTranslation';
 import { Theme } from '../../layout/theme';
 import Layout from '../../layout/layout/Layout';
 import Content from '../../layout/content/Content';
@@ -10,7 +10,7 @@ import PhoneLinkErase from '../icons/PhonelinkErase';
 const NotSupported = () => {
   const theme = useAppSelector(getTheme);
 
-  const { t } = useSharedTranslation();
+  const { t } = useTranslation();
 
   return (
     <Layout>

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { HashRouter, Routes } from 'react-router-dom';
 import { Loading } from './modules/shared';
 
 // const Dashboard = lazy(() =>
@@ -9,14 +9,14 @@ import { Loading } from './modules/shared';
 // );
 
 const Router = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Suspense fallback={<Loading />}>
       <Routes>
         {/* <Route path="/" element={<Dashboard />} /> */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Suspense>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 export default Router;

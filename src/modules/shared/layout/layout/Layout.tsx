@@ -23,6 +23,7 @@
 
 import React from 'react';
 import cn from 'classnames';
+import ThemeProvider from '../../context/theme/ThemeProvider';
 
 interface Props {
   children: React.ReactNode | React.ReactNode[];
@@ -49,19 +50,21 @@ const Layout = ({ children: possibleChildren, className }: Props) => {
   );
 
   return (
-    <div className={cn('h-[100vh]', className)}>
-      {childrenArray.length === 3 &&
-        render({
-          header: childrenArray[0],
-          content: childrenArray[2],
-          sidebar: childrenArray[1],
-        })}
+    <ThemeProvider>
+      <div className={cn('h-[100vh]', className)}>
+        {childrenArray.length === 3 &&
+          render({
+            header: childrenArray[0],
+            content: childrenArray[2],
+            sidebar: childrenArray[1],
+          })}
 
-      {childrenArray.length === 2 &&
-        render({ header: childrenArray[0], content: childrenArray[1] })}
+        {childrenArray.length === 2 &&
+          render({ header: childrenArray[0], content: childrenArray[1] })}
 
-      {childrenArray.length === 1 && childrenArray[0]}
-    </div>
+        {childrenArray.length === 1 && childrenArray[0]}
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -5,9 +5,9 @@ import Select, {
   Props as SelectProps,
   components as SelectComponents,
 } from 'react-select';
+import { useTranslation } from 'react-i18next';
 import { useDropdownStyle } from '../../hooks/useDropdownStyle';
 import { OptionType } from '../../types/options';
-import { useSharedTranslation } from '../../hooks/useSharedTranslation';
 import { Theme } from '../../layout/theme';
 import { useAppSelector } from '../../store/hooks';
 import { getTheme } from '../../store/app/theme';
@@ -16,7 +16,7 @@ import DropDownIcon from '../icons/DropDownIcon';
 export const NoOptionsMessage = <T extends OptionType>(
   props: NoticeProps<T>
 ) => {
-  const { t } = useSharedTranslation();
+  const { t } = useTranslation();
 
   return (
     <SelectComponents.NoOptionsMessage {...props}>
@@ -28,7 +28,7 @@ export const NoOptionsMessage = <T extends OptionType>(
 };
 
 export const LoadingMessage = <T extends OptionType>(props: NoticeProps<T>) => {
-  const { t } = useSharedTranslation();
+  const { t } = useTranslation();
 
   return (
     <SelectComponents.LoadingMessage {...props}>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../store/hooks';
 import { getTheme } from '../../store/app/theme';
-import { useSharedTranslation } from '../../hooks/useSharedTranslation';
 import { Theme } from '../../layout/theme';
 import Layout from '../../layout/layout/Layout';
 import Content from '../../layout/content/Content';
@@ -13,7 +13,7 @@ const NotFound = () => {
 
   const theme = useAppSelector(getTheme);
 
-  const { t } = useSharedTranslation();
+  const { t } = useTranslation();
 
   const handleReturn = () => {
     navigate(`/`);
