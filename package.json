@@ -32,11 +32,11 @@
   "scripts": {
     "dev": "cross-env vite",
     "build": "tsc --noEmit --skipLibCheck && vite build",
-    "electron": "electron .",
     "start": "npm run dev",
     "build:electron": "tsc -p tsconfig.json",
     "build:prod": "npm run build && npm run build:electron && electron-builder",
     "start:prod": "npm run build:prod && electron dist/electron/main.js",
+    "electron": "npm run build && npm run build:electron && electron dist/electron/main.js",
     "preview": "vite preview",
     "jest": "jest",
     "test": "jest --detectOpenHandles",

@@ -1,8 +1,10 @@
-// Used in Renderer process, expose in `preload.ts`
-declare global {
-  interface Window {
-    ipcRenderer: import('electron').IpcRenderer;
-  }
-}
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { contextBridge } from 'electron';
 
-export {};
+contextBridge.exposeInMainWorld('versions', {
+  versions: {
+    node: process.versions.node,
+    chrome: process.versions.chrome,
+    electron: process.versions.electron,
+  },
+});
