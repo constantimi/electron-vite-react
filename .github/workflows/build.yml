@@ -41,6 +41,8 @@ jobs:
 
       - name: Build Release Files
         run: npm run build:prod
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
