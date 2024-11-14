@@ -2,8 +2,8 @@
   "API_URL": "https://development-app.com",
   "app": {
     "icon": {
-      "light": "/icons/app-icon.svg",
-      "dark": "/icons/app-icon.svg"
+      "light": "/icon.svg",
+      "dark": "/icon.svg"
     },
     "name": "Vite"
   },
