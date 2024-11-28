@@ -1,70 +1,114 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import os from 'node:os';
+import { update } from './update';
 
-const DIST_DIR = app.isPackaged
-  ? app.getAppPath()
-  : path.join(__dirname, '../');
-const ICONS_DIR = path.join(DIST_DIR, 'app/icons');
+const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Set environment variables for consistency
-process.env.DIST = DIST_DIR;
-process.env.PUBLIC = DIST_DIR;
+process.env.APP_ROOT = path.join(__dirname, '../..');
 
-let win: BrowserWindow | null;
-const { VITE_DEV_SERVER_URL } = process.env;
+export const ELECTRON_DIST = path.join(process.env.APP_ROOT, 'dist');
+export const MAIN_DIST = path.join(process.env.APP_ROOT, 'dist');
+export const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL;
 
-// Helper function to select the icon based on the OS
-function getIconPath(): string {
-  if (os.platform() === 'win32') {
-    return path.join(ICONS_DIR, 'app-icon.ico'); // ICO for Windows
-  }
+process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
+    ? path.join(process.env.APP_ROOT, 'public')
+    : MAIN_DIST;
 
-  if (os.platform() === 'darwin') {
-    return path.join(ICONS_DIR, 'app-icon.icns'); // ICNS for macOS
-  }
+// Disable GPU Acceleration for Windows 7
+if (os.release().startsWith('6.1')) app.disableHardwareAcceleration();
 
-  return path.join(ICONS_DIR, 'app-icon.png'); // PNG for Linux
+// Set application name for Windows 10+ notifications
+if (process.platform === 'win32') app.setAppUserModelId(app.getName());
+
+if (!app.requestSingleInstanceLock()) {
+    app.quit();
+    process.exit(0);
 }
 
-function createWindow() {
-  win = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    icon: getIconPath(),
-    autoHideMenuBar: true,
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      webSecurity: true,
-      allowRunningInsecureContent: false,
-      preload: path.join(__dirname, 'preload.js'),
-    },
-    show: false,
-  });
+let win: BrowserWindow | null = null;
+const preload = path.join(__dirname, './preload.mjs');
+const indexHtml = path.join(MAIN_DIST, 'index.html');
 
-  win.once('ready-to-show', () => {
-    if (win) win.show();
-  });
+async function createWindow() {
+    win = new BrowserWindow({
+        width: 1200,
+        height: 800,
+        icon: path.join(process.env.VITE_PUBLIC, 'favicon.ico'),
+        autoHideMenuBar: true,
+        webPreferences: {
+            preload,
+            // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
+            // nodeIntegration: false,
 
-  // Load the app
-  if (VITE_DEV_SERVER_URL) {
-    // Development: load Vite dev server URL
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    // Production: load index.html from the DIST folder
-    win.loadFile(path.join(DIST_DIR, 'index.html'));
-  }
+            // Consider using contextBridge.exposeInMainWorld
+            // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
+            // contextIsolation: true,
 
-  // Open DevTools in development mode
-  if (VITE_DEV_SERVER_URL) {
-    win.webContents.openDevTools();
-  }
+            // webSecurity: false, // Disable webSecurity for local files (ONLY in development)
+            // allowRunningInsecureContent: false,
+        },
+    });
+
+    if (VITE_DEV_SERVER_URL) {
+        win.loadURL(VITE_DEV_SERVER_URL);
+        // Open devTool if the app is not packaged
+        // win.webContents.openDevTools();
+    } else {
+        win.loadFile(indexHtml);
+        win.webContents.openDevTools();
+    }
+
+    // Make all links open with the browser, not with the application
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        if (url.startsWith('https:')) shell.openExternal(url);
+        return { action: 'deny' };
+    });
+
+    // Auto update
+    update(win);
 }
-
-app.on('window-all-closed', () => {
-  win = null;
-});
 
 app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+    win = null;
+    if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('second-instance', () => {
+    if (win) {
+        // Focus on the main window if the user tried to open another
+        if (win.isMinimized()) win.restore();
+        win.focus();
+    }
+});
+
+app.on('activate', () => {
+    const allWindows = BrowserWindow.getAllWindows();
+    if (allWindows.length) {
+        allWindows[0].focus();
+    } else {
+        createWindow();
+    }
+});
+
+// New window example arg: new windows url
+ipcMain.handle('open-win', (_, arg) => {
+    const childWindow = new BrowserWindow({
+        webPreferences: {
+            preload,
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+
+    if (VITE_DEV_SERVER_URL) {
+        childWindow.loadURL(`${VITE_DEV_SERVER_URL}#${arg}`);
+    } else {
+        childWindow.loadFile(indexHtml, { hash: arg });
+    }
+});
