@@ -1,4 +1,4 @@
-# Electron Vite React
+# electron-vite-react
 
 A project template for building Electron applications with Vite and React.
 
