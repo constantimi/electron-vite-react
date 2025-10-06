@@ -23,7 +23,7 @@
         "@types/react-dom": "^18.3.1",
         "@vitejs/plugin-react": "^4.3.4",
         "autoprefixer": "^10.4.20",
-        "electron": "^33.2.1",
+        "electron": "^38.2.1",
         "electron-builder": "^25.1.8",
         "electron-is-dev": "^3.0.1",
         "eslint": "^9.15.0",

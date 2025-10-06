@@ -6,8 +6,8 @@ const App = () => {
     const [count, setCount] = useState<number>(0);
 
     return (
-        <div className='flex flex-col h-screen justify-center items-center'>
-            <div className='flex flex-col justify-center items-center'>
+        <div className='flex h-screen flex-col items-center justify-center'>
+            <div className='flex flex-col items-center justify-center'>
                 <div className='flex flex-row'>
                     <a
                         href='https://vite.dev'
@@ -28,13 +28,13 @@ const App = () => {
                         />
                     </a>
                 </div>
-                <h1 className='font-semibold text-4xl'>
+                <h1 className='text-4xl font-semibold'>
                     Electron + Vite + React
                 </h1>
-                <div className='p-2 flex flex-col items-center'>
+                <div className='flex flex-col items-center p-2'>
                     <button
                         type='button'
-                        className='p-1 px-2 w-32 bg-gray-100 rounded-md'
+                        className='w-32 rounded-md bg-gray-100 p-1 px-2'
                         onClick={() => setCount(count + 1)}
                     >
                         count is {count}

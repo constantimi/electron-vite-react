@@ -5,15 +5,12 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 
-export default tseslint.config(
+export default [
     { ignores: ['dist'] },
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
     {
-        extends: [
-            js.configs.recommended,
-            ...tseslint.configs.recommended,
-            'plugin:tailwindcss/recommended',
-        ],
-        files: ['**/*.{ts,tsx,css}'],
+        files: ['**/*.{ts,tsx}'],
         languageOptions: {
             ecmaVersion: 2020,
             globals: globals.browser,
@@ -29,18 +26,21 @@ export default tseslint.config(
                 'warn',
                 { allowConstantExport: true },
             ],
-            'at-rule-no-unknown': [
-                'error',
-                {
-                    ignoreAtRules: [
-                        'tailwind',
-                        'apply',
-                        'layer',
-                        'variants',
-                        'responsive',
-                    ],
-                },
-            ],
+            ...tailwindcss.configs.recommended.rules,
         },
-    }
-);
+    },
+    {
+        files: ['**/*.cjs'],
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: {
+                ...globals.node,
+                module: 'readonly',
+                require: 'readonly',
+                __dirname: 'readonly',
+                __filename: 'readonly',
+                exports: 'writable',
+            },
+        },
+    },
+];
